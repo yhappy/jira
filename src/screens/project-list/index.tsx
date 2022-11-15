@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { cleanObject, useDebounce, useMount } from "utils/index";
 import { SearchPanel } from "./search-panel";
