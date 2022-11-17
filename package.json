@@ -18,7 +18,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "json-server": "json-server __json_server_mock__/db.json --watch --port 4001",
+    "json-server": "json-server __json_server_mock__/db.json --watch --port 4001 --middlewares __json_server_mock__/middleware.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
