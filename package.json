@@ -10,6 +10,7 @@
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
+    "jira-dev-tool": "^1.7.61",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -18,7 +19,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "json-server": "json-server __json_server_mock__/db.json --watch --port 4001 --middlewares __json_server_mock__/middleware.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -55,5 +55,8 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,tsx}": "prettier --write"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
