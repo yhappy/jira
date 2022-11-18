@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { cleanObject, useDebounce, useMount } from "utils/index";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
-import qs from "qs";
 import { useHttp } from "utils/http";
 
 export const ProjectListScreen = () => {
