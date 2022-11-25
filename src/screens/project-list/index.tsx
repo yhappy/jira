@@ -18,6 +18,7 @@ export const ProjectListScreen = () => {
   const client = useHttp();
   useEffect(() => {
     client("projects", { data: cleanObject(deouncedParam) }).then(setList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deouncedParam]);
 
   useMount(() => {
