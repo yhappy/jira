@@ -6,6 +6,8 @@ import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, MenuProps } from "antd";
 export const AuthenticatedApp = () => {
   const { user, logout } = useAuth();
+  const value: any = undefined;
+
   const items: MenuProps["items"] = [
     {
       label: (
