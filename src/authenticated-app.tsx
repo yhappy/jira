@@ -4,10 +4,28 @@ import { useAuth } from "context/auth-context";
 import { ProjectListScreen } from "screens/project-list";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, MenuProps } from "antd";
-export const AuthenticatedApp = () => {
-  const { user, logout } = useAuth();
-  const value: any = undefined;
+import { Route, Routes, Navigate } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ProjectScreen } from "screens/project";
 
+export const AuthenticatedApp = () => {
+  return (
+    <div>
+      <PageHeader />
+      <Main>
+        <Router>
+          <Routes>
+            <Route path="/projects" element={<ProjectListScreen />} />
+            <Route path="/projects/:projectId/*" element={<ProjectScreen />} />
+          </Routes>
+        </Router>
+      </Main>
+    </div>
+  );
+};
+
+const PageHeader = () => {
+  const { user, logout } = useAuth();
   const items: MenuProps["items"] = [
     {
       label: (
@@ -19,25 +37,21 @@ export const AuthenticatedApp = () => {
     },
   ];
   return (
-    <div>
-      <Header between={true}>
-        <HeaderLeft gap={true}>
-          <SoftwareLogo width={"18rem"} color={"rgb(38,132,255)"} />
-          <h2>项目</h2>
-          <h2>用户</h2>
-        </HeaderLeft>
-        <HeaderRight>
-          <Dropdown menu={{ items }}>
-            <Button type="link">Hi, {user?.name}</Button>
-          </Dropdown>
-        </HeaderRight>
-      </Header>
-      <Main>
-        <ProjectListScreen />
-      </Main>
-    </div>
+    <Header between={true}>
+      <HeaderLeft gap={true}>
+        <SoftwareLogo width={"18rem"} color={"rgb(38,132,255)"} />
+        <h2>项目</h2>
+        <h2>用户</h2>
+      </HeaderLeft>
+      <HeaderRight>
+        <Dropdown menu={{ items }}>
+          <Button type="link">Hi, {user?.name}</Button>
+        </Dropdown>
+      </HeaderRight>
+    </Header>
   );
 };
+
 const HeaderLeft = styled(Row)``;
 const HeaderRight = styled.div``;
 
