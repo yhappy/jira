@@ -18,14 +18,14 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
-  refresh?: () => void;
 }
 
 export const List = ({ users, ...props }: ListProps) => {
   const { open } = useProjectModal();
   const { mutate } = useEditProject();
-  const pinProject = (id: number) => (pin: boolean) =>
-    mutate({ id, pin }).then(props.refresh);
+  const { startEdit } = useProjectModal();
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
+  const editProject = (id: number) => () => startEdit(id);
   return (
     <Table
       pagination={false}
@@ -82,11 +82,22 @@ export const List = ({ users, ...props }: ListProps) => {
             const items = [
               {
                 label: (
-                  <ButtonNoPadding type="link" onClick={open}>
-                    编辑项目
+                  <ButtonNoPadding
+                    type="link"
+                    onClick={editProject(project.id)}
+                  >
+                    编辑
                   </ButtonNoPadding>
                 ),
                 key: "edit",
+              },
+              {
+                label: (
+                  <ButtonNoPadding type="link" onClick={open}>
+                    删除
+                  </ButtonNoPadding>
+                ),
+                key: "delete",
               },
             ];
             return (
