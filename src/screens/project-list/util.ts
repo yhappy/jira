@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useProject } from "utils/project";
-import { useUrlQueryParam } from "utils/url";
+import { useSetUrlSearchParam, useUrlQueryParam } from "utils/url";
 
 // 项目列表搜素的参数
 export const useProjectsSearchParams = () => {
@@ -30,20 +30,18 @@ export const useProjectModal = () => {
     "editingProjectId",
   ]);
 
+  const setUrlParams = useSetUrlSearchParam();
+
   const { data: editingProject, isLoading } = useProject(
     Number(editingProjectId)
   );
 
   const open = () => setProjectCreate({ projectCreate: true });
   const close = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    projectCreate === "true"
-      ? setProjectCreate({ projectCreate: undefined })
-      : "";
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    Boolean(editingProjectId)
-      ? setEditingProjectId({ editingProjectId: undefined })
-      : "";
+    setUrlParams({
+      projectCreate: undefined,
+      editingProjectId: undefined,
+    });
   };
   const startEdit = (id: number) =>
     setEditingProjectId({ editingProjectId: id });
