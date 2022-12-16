@@ -8,25 +8,22 @@ import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ProjectScreen } from "screens/project";
 import { resetRoute } from "utils";
-import { useState } from "react";
 import { ProjectModal } from "screens/project-list/project-modal";
 import { ProjectPopover } from "components/project-popover";
 
 export const AuthenticatedApp = () => {
   return (
-    <div>
-      <Router>
-        <PageHeader />
-        <Main>
-          <Routes>
-            <Route path="/projects" element={<ProjectListScreen />} />
-            <Route path="/projects/:projectId/*" element={<ProjectScreen />} />
-            <Route path="*" element={<Navigate to={"/projects"} />}></Route>
-          </Routes>
-        </Main>
-        <ProjectModal />
-      </Router>
-    </div>
+    <Router>
+      <PageHeader />
+      <Main>
+        <Routes>
+          <Route path="/projects" element={<ProjectListScreen />} />
+          <Route path="/projects/:projectId/*" element={<ProjectScreen />} />
+          <Route path="*" element={<Navigate to={"/projects"} />}></Route>
+        </Routes>
+      </Main>
+      <ProjectModal />
+    </Router>
   );
 };
 
@@ -77,5 +74,7 @@ const Header = styled(Row)`
   z-index: 1;
 `;
 const Main = styled.main`
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 7rem);
+  display: flex;
+  overflow: hidden;
 `;

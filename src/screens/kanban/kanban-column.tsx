@@ -3,6 +3,8 @@ import { Card } from "antd";
 import { Kanban } from "types/kanban";
 import { useTasks } from "utils/task";
 import { useTaskTypes } from "utils/task-type";
+import { CreateKanban } from "./create-kanban";
+import { CreateTask } from "./create-task";
 import { BugSvg, TaskSvg } from "./svg";
 import { useTasksSearchParams } from "./utils";
 
@@ -28,13 +30,14 @@ export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
             <TaskTypeIcon id={task.typeId}></TaskTypeIcon>
           </Card>
         ))}
+        <CreateTask kanbanId={kanban.id}></CreateTask>
       </TasksContainer>
     </Container>
   );
 };
 
-const Container = styled.div`
-  min-width: 30rem;
+export const Container = styled.div`
+  min-width: 27rem;
   border-radius: 6px;
   background-color: rgb(244, 245, 247);
   display: flex;
