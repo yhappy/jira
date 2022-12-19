@@ -22,7 +22,7 @@ export const SearchPanel = () => {
         style={{ width: "20rem" }}
         placeholder="任务名"
         value={searchParams.name}
-        onChange={(evt) => setSearchParams({ name: evt.target.validity })}
+        onChange={(evt) => setSearchParams({ name: evt.target.value })}
       ></Input>
       <UserSelect
         defaultOptionName="经办人"
