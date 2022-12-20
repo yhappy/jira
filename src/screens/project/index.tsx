@@ -4,7 +4,6 @@ import { KanbanScreen } from "screens/kanban";
 import { EpicScreen } from "screens/epic";
 import styled from "@emotion/styled";
 import { Menu } from "antd";
-import { ScreenContainer } from "components/libs";
 
 const useRouteType = () => {
   const units = useLocation().pathname.split("/");
@@ -13,17 +12,20 @@ const useRouteType = () => {
 
 export const ProjectScreen = () => {
   const routeType = useRouteType();
+  const items = [
+    {
+      label: <Link to={"kanban"}>看板</Link>,
+      key: "kanban",
+    },
+    {
+      label: <Link to={"epic"}>任务组</Link>,
+      key: "epic",
+    },
+  ];
   return (
     <Container>
       <Aside>
-        <Menu mode="inline" selectedKeys={[routeType]}>
-          <Menu.Item key={"kanban"}>
-            <Link to={"kanban"}>看板</Link>
-          </Menu.Item>
-          <Menu.Item key={"epic"}>
-            <Link to={"epic"}>任务组</Link>
-          </Menu.Item>
-        </Menu>
+        <Menu mode="inline" selectedKeys={[routeType]} items={items}></Menu>
       </Aside>
       <Main>
         <Routes>

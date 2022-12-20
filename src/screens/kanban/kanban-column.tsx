@@ -14,6 +14,7 @@ import {
   useTasksModal,
   useTasksSearchParams,
 } from "./utils";
+import { Draggable, Droppable, DragDropContext } from "react-beautiful-dnd";
 
 const TaskTypeIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
@@ -48,12 +49,37 @@ export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
     <Container>
       <Row between={true}>
         <h3>{kanban.name}</h3>
-        <More kanban={kanban}></More>
+        <More kanban={kanban} key={kanban.id}></More>
       </Row>
       <TasksContainer>
-        {tasks?.map((task) => (
-          <TaskCard task={task} key={task.id}></TaskCard>
-        ))}
+        <Droppable type="row" direction="vertical" droppableId={"" + kanban.id}>
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={{ minHeight: "5px" }}
+            >
+              {tasks?.map((task, taskIndex) => (
+                <Draggable
+                  draggableId={"task" + task.id}
+                  index={taskIndex}
+                  key={task.id}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <TaskCard task={task} key={task.id}></TaskCard>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
         <CreateTask kanbanId={kanban.id}></CreateTask>
       </TasksContainer>
     </Container>
