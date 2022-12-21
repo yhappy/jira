@@ -1,14 +1,10 @@
+import { useQuery } from "react-query";
 import { User } from "types/user";
-import { cleanObject, useMount } from "utils";
 import { useHttp } from "./http";
-import { useAsync } from "./use-async";
 
 export const useUsers = (param?: Partial<User>) => {
   const client = useHttp();
-  const { run, ...result } = useAsync<User[]>();
-
-  useMount(() => {
-    run(client("users", { data: cleanObject(param || {}) }));
-  });
-  return result;
+  return useQuery<User[]>(["users", param], () =>
+    client("users", { data: param })
+  );
 };

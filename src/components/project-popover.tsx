@@ -5,15 +5,15 @@ import { useProjects } from "utils/project";
 import { ButtonNoPadding, ErrorBox } from "./libs";
 
 export const ProjectPopover = () => {
-  const { data: projects, isLoading } = useProjects();
   const { open } = useProjectModal();
+  const { data: projects, refetch } = useProjects();
   const pinnedProjects = projects?.filter((project) => project.pin);
   const content = (
     <ContentContainer>
       <Typography.Text type="secondary">收藏项目</Typography.Text>
       <List>
         {pinnedProjects?.map((projects) => (
-          <List.Item>
+          <List.Item key={projects.id}>
             <List.Item.Meta title={projects.name} />
           </List.Item>
         ))}
@@ -25,7 +25,11 @@ export const ProjectPopover = () => {
     </ContentContainer>
   );
   return (
-    <Popover placement="bottom" content={content}>
+    <Popover
+      onOpenChange={() => refetch()}
+      placement="bottom"
+      content={content}
+    >
       <span>项目</span>
     </Popover>
   );
